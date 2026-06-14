@@ -1,309 +1,655 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Erick Quiroz | Data Scientist & Cybersecurity</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Erick Quiroz · Bioinformatics & Cybersecurity</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* ── Matcha palette ── */
+      --bg:           #f5f7f0;       /* warm off-white, hint of green */
+      --bg2:          #eef1e8;       /* slightly deeper, sections */
+      --surface:      #ffffff;
+      --surface2:     #f0f3eb;
+      --border:       #d6dbc8;
+      --border-soft:  #e4e9d8;
+
+      --ink:          #2c3320;       /* deep matcha ink */
+      --ink2:         #4a5535;       /* medium green-grey */
+      --muted:        #7a8a68;       /* muted sage */
+      --placeholder:  #b0bda0;
+
+      --matcha:       #5a7a3a;       /* primary matcha green */
+      --matcha-light: #8aab5e;       /* lighter accent */
+      --matcha-pale:  #d4e4b8;       /* very soft tint */
+      --clay:         #c47a52;       /* warm terracotta accent */
+      --clay-pale:    #f2ddd0;
+      --sky:          #5b8fa8;       /* cool blue for cyber/cloud */
+      --sky-pale:     #d8eaf2;
+      --plum:         #8b6a9e;
+      --plum-pale:    #ecdff5;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    a { color: var(--matcha); text-decoration: none; }
+    a:hover { text-decoration: underline; color: var(--matcha-light); }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(245, 247, 240, 0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      color: var(--matcha);
+      letter-spacing: 0.04em;
+      font-weight: 600;
+    }
+    .nav-links { display: flex; gap: 1.75rem; }
+    .nav-links a {
+      font-size: 0.8rem;
+      color: var(--muted);
+      transition: color 0.2s;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .nav-links a:hover { color: var(--ink); text-decoration: none; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 7rem 2rem 4rem;
+      max-width: 960px;
+      margin: 0 auto;
+      gap: 4rem;
+    }
+    .hero-left { flex: 1; min-width: 0; }
+    .hero-right { flex-shrink: 0; }
+
+    /* ── PHOTO ── */
+    .photo-wrap {
+      position: relative;
+      width: 200px;
+      height: 200px;
+    }
+    .photo-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      background: conic-gradient(
+        var(--matcha) 0deg,
+        var(--matcha-light) 90deg,
+        var(--matcha-pale) 180deg,
+        var(--matcha-light) 270deg,
+        var(--matcha) 360deg
+      );
+      animation: spin-ring 8s linear infinite;
+      opacity: 0.55;
+    }
+    @keyframes spin-ring { to { transform: rotate(360deg); } }
+    .photo-wrap::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      background: var(--bg);
+    }
+    .photo-wrap img,
+    .photo-placeholder {
+      position: relative;
+      z-index: 1;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+    }
+    .photo-placeholder {
+      background: var(--surface2);
+      border: 2px dashed var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      color: var(--placeholder);
+      font-size: 0.72rem;
+      font-family: 'JetBrains Mono', monospace;
+      text-align: center;
+      cursor: default;
+    }
+    .photo-placeholder span { font-size: 1.8rem; }
+
+    .hero-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--matcha);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 24px;
+      height: 1.5px;
+      background: var(--matcha);
+      flex-shrink: 0;
+    }
+
+    .hero-name {
+      font-family: 'Lora', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.15;
+      margin-bottom: 0.4rem;
+    }
+    .hero-name em {
+      font-style: italic;
+      color: var(--matcha);
+    }
+    .hero-sub {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+      letter-spacing: 0.02em;
+    }
+    .hero-desc {
+      font-size: 0.9rem;
+      color: var(--ink2);
+      max-width: 520px;
+      margin-bottom: 1.75rem;
+      line-height: 1.8;
+    }
+    .hero-badges {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.3rem 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 2rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--muted);
+      background: var(--surface);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .badge:hover { border-color: var(--matcha-light); color: var(--ink2); }
+    .badge .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+    .dot-green  { background: var(--matcha); }
+    .dot-clay   { background: var(--clay); }
+    .dot-sky    { background: var(--sky); }
+
+    .hero-cta { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.55rem 1.15rem;
+      border-radius: 6px;
+      font-size: 0.83rem; font-weight: 500;
+      transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+      cursor: pointer; border: none; text-decoration: none;
+    }
+    .btn:hover { opacity: 0.88; transform: translateY(-1px); text-decoration: none; box-shadow: 0 4px 12px rgba(90,122,58,0.15); }
+    .btn-primary { background: var(--matcha); color: #fff; }
+    .btn-ghost   { background: transparent; color: var(--ink2); border: 1px solid var(--border); }
+    .btn-ghost:hover { border-color: var(--matcha-light); }
+
+    /* ── SECTION BASE ── */
+    section { padding: 5rem 2rem; }
+    .alt-bg { background: var(--bg2); }
+    .section-inner { max-width: 860px; margin: 0 auto; }
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--matcha);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      margin-bottom: 0.4rem;
+    }
+    .section-title {
+      font-family: 'Lora', serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 2.25rem;
+    }
+    .divider { border: none; border-top: 1px solid var(--border-soft); margin: 0; }
+
+    /* ── ABOUT ── */
+    .about-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+    .about-card {
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: 10px;
+      padding: 1.5rem;
+      transition: box-shadow 0.2s;
+    }
+    .about-card:hover { box-shadow: 0 4px 18px rgba(90,122,58,0.08); }
+    .about-card h3 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--matcha);
+      margin-bottom: 0.65rem;
+      letter-spacing: 0.04em;
+    }
+    .about-card p { font-size: 0.87rem; color: var(--ink2); line-height: 1.75; }
+    .about-card p strong { color: var(--ink); font-weight: 600; }
+
+    /* ── PROJECTS ── */
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: 10px;
+      padding: 1.75rem;
+      margin-bottom: 1.1rem;
+      transition: box-shadow 0.2s, border-color 0.2s;
+    }
+    .project-card:hover { box-shadow: 0 6px 24px rgba(90,122,58,0.1); border-color: var(--matcha-pale); }
+    .project-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 0.65rem; gap: 1rem; }
+    .project-title { font-family: 'JetBrains Mono', monospace; font-size: 0.92rem; font-weight: 600; color: var(--matcha); }
+    .project-title a { color: inherit; }
+    .project-status {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.65rem;
+      padding: 0.18rem 0.55rem; border-radius: 2rem;
+      background: var(--matcha-pale); color: var(--matcha);
+      border: 1px solid rgba(90,122,58,0.3);
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .project-desc { font-size: 0.87rem; color: var(--ink2); margin-bottom: 0.9rem; line-height: 1.7; }
+    .project-features { list-style: none; margin-bottom: 1.1rem; }
+    .project-features li {
+      font-size: 0.82rem; color: var(--muted);
+      padding: 0.18rem 0; display: flex; gap: 0.5rem;
+    }
+    .project-features li::before { content: '→'; color: var(--matcha-light); flex-shrink: 0; }
+    .tech-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .tech-tag {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.65rem;
+      padding: 0.18rem 0.5rem; border-radius: 4px;
+      background: var(--sky-pale); color: var(--sky);
+      border: 1px solid rgba(91,143,168,0.25);
+    }
+    .wip-note {
+      margin-top: 1.25rem; padding: 0.9rem 1.1rem;
+      background: var(--clay-pale);
+      border: 1px solid rgba(196,122,82,0.25);
+      border-radius: 8px;
+      font-size: 0.82rem; color: var(--clay); font-style: italic;
+    }
+    .wip-note strong { font-style: normal; }
+
+    /* ── STACK ── */
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .stack-group {
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: 10px;
+      padding: 1.1rem 1.25rem;
+    }
+    .stack-group-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.67rem; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.1em;
+      margin-bottom: 0.85rem;
+    }
+    .stack-items { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+    .stack-item {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+      padding: 0.2rem 0.5rem; border-radius: 4px;
+      background: var(--bg); border: 1px solid var(--border);
+      color: var(--ink2);
+    }
+    .si-bio    { background: var(--matcha-pale); color: var(--matcha); border-color: rgba(90,122,58,0.3); }
+    .si-data   { background: var(--sky-pale);    color: var(--sky);    border-color: rgba(91,143,168,0.3); }
+    .si-cyber  { background: var(--clay-pale);   color: var(--clay);   border-color: rgba(196,122,82,0.3); }
+    .si-cloud  { background: var(--plum-pale);   color: var(--plum);   border-color: rgba(139,106,158,0.3); }
+
+    /* ── CERTS ── */
+    .certs-list { display: flex; flex-direction: column; gap: 0.5rem; }
+    .cert-row {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 0.8rem 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: 8px;
+      transition: box-shadow 0.2s;
+    }
+    .cert-row:hover { box-shadow: 0 3px 12px rgba(90,122,58,0.08); }
+    .cert-icon { font-size: 1rem; flex-shrink: 0; width: 26px; text-align: center; }
+    .cert-info { flex: 1; min-width: 0; }
+    .cert-name { font-size: 0.84rem; font-weight: 500; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .cert-issuer { font-size: 0.73rem; color: var(--muted); margin-top: 0.1rem; }
+    .cert-year { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--muted); flex-shrink: 0; }
+
+    /* ── CONNECT ── */
+    #connect { background: var(--bg2); }
+    .connect-inner { max-width: 860px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem; }
+    .connect-links { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .connect-link {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 6px; font-size: 0.83rem;
+      color: var(--ink2); background: var(--surface);
+      transition: border-color 0.2s, color 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+    }
+    .connect-link:hover { border-color: var(--matcha-light); color: var(--matcha); text-decoration: none; box-shadow: 0 3px 10px rgba(90,122,58,0.1); }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 1.5rem 2rem; text-align: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem; color: var(--muted);
+      border-top: 1px solid var(--border-soft);
+      background: var(--bg);
+    }
+    footer span { color: var(--matcha); }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      #hero { flex-direction: column-reverse; gap: 2rem; align-items: flex-start; min-height: auto; padding-top: 5rem; }
+      .photo-wrap, .photo-wrap img, .photo-placeholder { width: 140px; height: 140px; }
+      .about-layout { grid-template-columns: 1fr; }
+      section { padding: 3.5rem 1.25rem; }
+      nav { padding: 0 1rem; }
+      .nav-links { gap: 1rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .photo-wrap::before { animation: none; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+  </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="container">
-            <div class="nav-content">
-                <div class="logo">EQ</div>
-                <ul class="nav-links">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#skills">Skills</a></li>
-                    <li><a href="#experience">Experience</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-                <div class="theme-switch-wrapper">
-                    <label class="theme-switch" for="checkbox">
-                        <input type="checkbox" id="checkbox" />
-                        <div class="slider round"></div>
-                    </label>
-                    <span id="theme-icon">☀️</span>
-                </div>
-            </div>
+
+  <!-- NAV -->
+  <nav>
+    <span class="nav-logo">~/erick-quiroz</span>
+    <div class="nav-links">
+      <a href="#about">about</a>
+      <a href="#projects">projects</a>
+      <a href="#stack">stack</a>
+      <a href="#certs">certs</a>
+      <a href="#connect">connect</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-left">
+      <p class="hero-eyebrow">Panamá · Universidad Tecnológica de Panamá</p>
+      <h1 class="hero-name">Erick <em>Quiroz</em></h1>
+      <p class="hero-sub">Bioinformatics · Computational Genomics · Cybersecurity</p>
+      <p class="hero-desc">
+        Panamanian undergraduate researcher working at the intersection of computational biology and data-driven medicine — applying statistical and ML methods to multi-omics datasets to uncover disease mechanisms, identify prognostic biomarkers, and explore drug repurposing candidates.
+      </p>
+      <div class="hero-badges">
+        <span class="badge"><span class="dot dot-green"></span>Bioinformatics</span>
+        <span class="badge"><span class="dot dot-clay"></span>Cybersecurity</span>
+        <span class="badge"><span class="dot dot-sky"></span>Cloud · AWS</span>
+      </div>
+      <div class="hero-cta">
+        <a href="https://github.com/ErickQ29" target="_blank" rel="noopener" class="btn btn-primary">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.031 1.531 1.031.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+          GitHub
+        </a>
+        <a href="https://www.linkedin.com/in/erick-quiroz-492189347" target="_blank" rel="noopener" class="btn btn-ghost">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+
+    <!-- PHOTO — coloca erick.jpg en la misma carpeta que index.html -->
+    <div class="hero-right">
+      <div class="photo-wrap">
+        <img src="erick.jpg" alt="Erick Quiroz"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <div class="photo-placeholder" style="display:none;">
+          <span>🧬</span>
+          erick.jpg
         </div>
-    </nav>
+      </div>
+    </div>
+  </section>
 
-    <section id="home" class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1>Erick Alberto<br>Quiroz Knight</h1>
-                    <p class="subtitle">Data Scientist & Cybersecurity Professional</p>
-                    <p>Third-year Cybersecurity student with a passion for Data Science. I combine analytical thinking with cybersecurity expertise to solve complex problems and uncover objective truths in data.</p>
-                    <div class="cta-buttons">
-                        <a href="#contact" class="btn btn-primary">Get In Touch 📧</a>
-                        <a href="#experience" class="btn btn-outline">View Experience 🚀</a>
-                    </div>
-                </div>
-                <div class="hero-visual">
-                    <div class="profile-card floating">
-                        <div class="profile-image">🐙</div>
-                        <h3>Scientific Octopus 🐙</h3>
-                        <p>Data Scientist</p>
-                        <p>Panama, Panama</p>
-                    </div>
-                    <div class="profile-card">
-                        <div class="profile-image"><img src="IMG_20250611_084622.jpg" alt="Erick Quiroz"></div>
-                        <h3>Erick Quiroz</h3>
-                        <p>Cybersecurity Student</p>
-                        <p>Panama, Panama</p>
-                    </div>
-                </div>
-            </div>
+  <hr class="divider" />
+
+  <!-- ABOUT -->
+  <section id="about" class="alt-bg">
+    <div class="section-inner reveal">
+      <p class="section-label">// about</p>
+      <h2 class="section-title">Who I am</h2>
+      <div class="about-layout">
+        <div class="about-card">
+          <h3>🧬 Research Focus</h3>
+          <p>Working at the intersection of <strong>computational biology</strong> and <strong>data-driven medicine</strong>. Primary domains: genomics, transcriptomics, and survival analysis — applying statistical and ML methods to multi-omics datasets to understand disease mechanisms and identify prognostic biomarkers.</p>
         </div>
-    </section>
-
-    <section id="about" class="about">
-        <div class="container">
-            <div class="section-title">
-                <h2>About Me</h2>
-                <p>Passionate about turning data into insights and securing digital assets</p>
-            </div>
-            <div class="about-content">
-                <div class="about-text">
-                    <h3>My Journey</h3>
-                    <p>Currently pursuing a Bachelor's degree in Cybersecurity (graduating 2027), I've developed a deep passion for Data Science along the way. My academic background in informatic from high school laid the foundation for my technical expertise.</p>
-                    <p>I believe in achieving objective truth through rigorous data analysis and evidence-based approaches. Whether it's identifying security vulnerabilities or uncovering patterns in complex datasets, I approach every challenge with analytical precision.</p>
-                    <p>My core interests lie in predictive modeling and data visualization within Data Science, and in digital forensics within Cybersecurity. I enjoy exploring complex datasets, such as those related to mental health, to extract meaningful insights and contribute to impactful solutions.</p>
-                </div>
-                <div class="stats">
-                    <div class="stat-item">
-                        <div class="stat-number">3+</div>
-                        <div class="stat-label">Programming Languages</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">2027</div>
-                        <div class="stat-label">Expected Graduation</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">C1</div>
-                        <div class="stat-label">English Level</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">∞</div>
-                        <div class="stat-label">Learning Mindset</div>
-                    </div>
-                </div>
-            </div>
+        <div class="about-card">
+          <h3>🔐 Background</h3>
+          <p>Cybersecurity background shapes how I think about <strong>data integrity, reproducibility</strong>, and rigorous methodology in research pipelines. Certified in Multi-Cloud Red &amp; Blue Teaming. When not in R or Python, I build full-stack apps and tinker with Linux systems.</p>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <section id="skills" class="skills">
-        <div class="container">
-            <div class="section-title">
-                <h2>Technical Skills & Tools</h2>
-                <p>Languages, frameworks, and tools I work with</p>
-            </div>
-            <div class="skills-grid">
-                <div class="skill-card">
-                    <h3>🐍 Programming Languages</h3>
-                    <ul class="skill-list">
-                        <li>Python - Data analysis, ML, automation</li>
-                        <li>R - Statistical computing, visualization</li>
-                        <li>Julia - High-performance computing</li>
-                    </ul>
-                </div>
-                <div class="skill-card">
-                    <h3>📊 Data Science Ecosystem</h3>
-                    <ul class="skill-list">
-                        <li>Pandas - Data manipulation & analysis</li>
-                        <li>NumPy - Numerical computing</li>
-                        <li>Scikit-learn - Machine learning</li>
-                        <li>Data Analysis & Visualization</li>
-                        <li>Statistical Modeling</li>
-                    </ul>
-                </div>
-                <div class="skill-card">
-                    <h3>🔐 Cybersecurity Tools</h3>
-                    <ul class="skill-list">
-                        <li>Nmap - Network scanning</li>
-                        <li>Wireshark - Network protocol analysis</li>
-                        <li>Penetration Testing Tools</li>
-                        <li>Digital Forensics</li>
-                    </ul>
-                </div>
-                <div class="skill-card">
-                    <h3>🗄️ Databases & Cloud</h3>
-                    <ul class="skill-list">
-                        <li>Relational Databases (SQL)</li>
-                        <li>Database Management</li>
-                        <li>AWS Architecture</li>
-                    </ul>
-                </div>
-                <div class="skill-card">
-                    <h3>🐧 Operating Systems</h3>
-                    <ul class="skill-list">
-                        <li>Linux (Arch, Fedora, Parrot OS)</li>
-                        <li>Virtualization (e.g., VMware, VirtualBox)</li>
-                    </ul>
-                </div>
-                <div class="skill-card">
-                    <h3>🗣️ Languages & Soft Skills</h3>
-                    <ul class="skill-list">
-                        <li>Spanish - Native speaker</li>
-                        <li>English - Intermediate (C1)</li>
-                        <li>Technical Communication</li>
-                        <li>Problem Solving & Analytical Thinking</li>
-                    </ul>
-                </div>
-            </div>
+  <hr class="divider" />
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-inner reveal">
+      <p class="section-label">// research &amp; projects</p>
+      <h2 class="section-title">Featured work</h2>
+
+      <div class="project-card">
+        <div class="project-header">
+          <span class="project-title">
+            <a href="https://github.com/ErickQ29/TARGET-NBL-survival-analysis" target="_blank" rel="noopener">
+              TARGET-NBL-survival-analysis
+            </a>
+          </span>
+          <span class="project-status">Active</span>
         </div>
-    </section>
-
-    <section id="experience" class="experience">
-        <div class="container">
-            <div class="section-title">
-                <h2>Experience & Education</h2>
-                <p>My academic journey and professional aspirations</p>
-            </div>
-            <div class="experience-grid">
-                <div class="experience-card">
-                    <h3>Cybersecurity Student</h3>
-                    <p class="duration">Universidad Tecnolgica de Panamá | 2022 - Present (Expected Graduation 2027)</p>
-                    <ul>
-                        <li><p>Currently pursuing a Bachelor's degree in Cybersecurity, focusing on network security, digital forensics, and ethical hacking.</p></li>
-                        <li><p>Acquired strong foundational knowledge in computer science, algorithms, and data structures.</p></li>
-                        <li><p>Actively participating in university cybersecurity clubs and hackathons to apply theoretical knowledge.</p></li>
-                    </ul>
-                </div>
-                <div class="experience-card">
-                    <h3>Participant: Hackathon Copa Airlines 2024 – Reto Linux</h3>
-                    <p class="duration">Copa Airlines & Ciudad del Saber | Octubre 2024</p>
-                    <ul>
-                        <li><p>Attended the 5th edition of this technology competition, which gathered 460 university students from Panama.</p></li>
-                        <li><p>Focused on Linux system optimization and security hardening, applying knowledge in areas like Linux, AI, cloud services, and automation.</p></li>
-                        <li><p>Engaged in a collaborative environment promoting advanced technologies and teamwork.</p></li>
-                        <li><p>Source: <a href="https://ciudaddelsaber.org/noticias/hackathon-copa-airlines-2024-1" target="_blank">Hackathon Copa Airlines 2024 - Ciudad del Saber</a></p></li>
-                    </ul>
-                </div>
-                <div class="experience-card">
-                    <h3>Participant: Piloto de Aceleración de Educación en Ciberseguridad</h3>
-                    <p class="duration">AIG & UTP | Febrero 2025 - Present (9 months)</p>
-                    <ul>
-                        <li><p>Participating in a specialized training program for 100 cybersecurity students, a joint initiative by AIG and UTP.</p></li>
-                        <li><p>Focusing on strengthening cybersecurity education, covering both theoretical and practical aspects using internationally renowned platforms.</p></li>
-                        <li><p>Aims to develop specialists capable of addressing increasing digital threats in Panama.</p></li>
-                        <li><p>Source: <a href="https://aig.gob.pa/panama-refuerza-su-defensa-digital-aig-y-utp-lanzan-piloto-de-aceleracion-de-educacion-en-ciberseguridad/" target="_blank">Panamá refuerza su defensa digital. AIG y UTP lanzan Piloto de Aceleración de Educación en Ciberseguridad.</a></p></li>
-                    </ul>
-                </div>
-                <div class="experience-card">
-                    <h3>Aspiring Data Scientist / Cybersecurity Analyst</h3>
-                    <p class="duration">Seeking Internships & Entry-Level Roles</p>
-                    <ul>
-                        <li><p>Eager to apply analytical and technical skills in real-world scenarios through internships with potential for full-time employment.</p></li>
-                        <li><p>Passionate about contributing to data-driven decision-making and enhancing organizational security postures.</p></li>
-                        <li><p>Open to roles that involve machine learning, data visualization, threat intelligence, and incident response.</p></li>
-                    </ul>
-                </div>
-            </div>
+        <p class="project-desc">
+          Survival analysis and exploratory data analysis on the <strong>TARGET Neuroblastoma (TARGET-NBL)</strong> paediatric cancer dataset. Focused on identifying clinical risk factors and stratifying patients by outcome probability.
+        </p>
+        <ul class="project-features">
+          <li>Kaplan–Meier survival curves with log-rank testing</li>
+          <li>Clinical feature analysis and risk stratification</li>
+          <li>Reproducible pipeline from public NCI TARGET data</li>
+        </ul>
+        <div class="tech-tags">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">pandas</span>
+          <span class="tech-tag">lifelines</span>
+          <span class="tech-tag">matplotlib</span>
+          <span class="tech-tag">seaborn</span>
         </div>
-    </section>
+      </div>
 
-    <footer id="contact" class="contact">
-        <div class="container">
-            <div class="contact-content">
-                <h2>Let's Connect</h2>
-                <p>Ready to collaborate on data science projects or discuss cybersecurity challenges? Let's talk!</p>
-                <div class="contact-links">
-                    <a href="mailto:erickaquirozk29@gmail.com" class="contact-link">
-                        📧 Email Me
-                    </a>
-                    <a href="https://github.com/ErickQ29" class="contact-link" target="_blank">
-                        💻 GitHub
-                    </a>
-                    <a href="https://www.linkedin.com/in/erick-quiroz-492189347" class="contact-link" target="_blank">
-                        🔗 LinkedIn
-                    </a>
-                    </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; <span id="current-year"></span> Erick Quiroz. All rights reserved.</p>
-            </div>
+      <div class="wip-note">
+        <strong>In active development:</strong> Breast cancer RNA-seq (GSE176078, DESeq2) · TCGA-LUAD biomarker study · and more incoming.
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- STACK -->
+  <section id="stack" class="alt-bg">
+    <div class="section-inner reveal">
+      <p class="section-label">// tech stack</p>
+      <h2 class="section-title">Tools &amp; technologies</h2>
+      <div class="stack-grid">
+        <div class="stack-group">
+          <p class="stack-group-label">Bioinformatics</p>
+          <div class="stack-items">
+            <span class="stack-item si-bio">Python</span>
+            <span class="stack-item si-bio">R</span>
+            <span class="stack-item si-bio">DESeq2</span>
+            <span class="stack-item si-bio">Bioconductor</span>
+            <span class="stack-item si-bio">Seurat</span>
+            <span class="stack-item si-bio">clusterProfiler</span>
+            <span class="stack-item si-bio">lifelines</span>
+            <span class="stack-item si-bio">ggplot2</span>
+          </div>
         </div>
-    </footer>
+        <div class="stack-group">
+          <p class="stack-group-label">Data Science</p>
+          <div class="stack-items">
+            <span class="stack-item si-data">pandas</span>
+            <span class="stack-item si-data">NumPy</span>
+            <span class="stack-item si-data">SciPy</span>
+            <span class="stack-item si-data">Jupyter</span>
+            <span class="stack-item si-data">scikit-learn</span>
+          </div>
+        </div>
+        <div class="stack-group">
+          <p class="stack-group-label">Cybersecurity</p>
+          <div class="stack-items">
+            <span class="stack-item si-cyber">Kali Linux</span>
+            <span class="stack-item si-cyber">Wireshark</span>
+            <span class="stack-item si-cyber">Bash</span>
+            <span class="stack-item si-cyber">Red Teaming</span>
+            <span class="stack-item si-cyber">Blue Teaming</span>
+            <span class="stack-item si-cyber">Threat Analysis</span>
+          </div>
+        </div>
+        <div class="stack-group">
+          <p class="stack-group-label">Cloud</p>
+          <div class="stack-items">
+            <span class="stack-item si-cloud">AWS</span>
+            <span class="stack-item si-cloud">IAM</span>
+            <span class="stack-item si-cloud">S3</span>
+            <span class="stack-item si-cloud">EC2</span>
+            <span class="stack-item si-cloud">Terraform</span>
+          </div>
+        </div>
+        <div class="stack-group">
+          <p class="stack-group-label">Web &amp; Systems</p>
+          <div class="stack-items">
+            <span class="stack-item">Next.js</span>
+            <span class="stack-item">React</span>
+            <span class="stack-item">Node.js</span>
+            <span class="stack-item">Linux</span>
+            <span class="stack-item">NixOS</span>
+            <span class="stack-item">Arch Linux</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+  <hr class="divider" />
 
-        // Add scroll effect to navbar (slightly adjusted for dark mode)
-        window.addEventListener('scroll', () => {
-            const navbar = document.querySelector('.navbar');
-            const rootStyle = getComputedStyle(document.documentElement);
-            const navbarBgDefault = rootStyle.getPropertyValue('--navbar-bg').trim();
-            
-            if (window.scrollY > 100) {
-                // Adjust transparency slightly for scrolled state
-                if (document.documentElement.getAttribute('data-theme') === 'dark') {
-                    navbar.style.background = 'rgba(30, 41, 59, 0.98)';
-                } else {
-                    navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-                }
-            } else {
-                navbar.style.background = navbarBgDefault; // Use the CSS variable directly
-            }
-        });
+  <!-- CERTS -->
+  <section id="certs">
+    <div class="section-inner reveal">
+      <p class="section-label">// credentials</p>
+      <h2 class="section-title">Certifications</h2>
+      <div class="certs-list">
+        <div class="cert-row"><span class="cert-icon">🔴</span><div class="cert-info"><p class="cert-name">Certified Multi-Cloud Red Team Analyst (MCRTA)</p><p class="cert-issuer">CyberWarfare Labs</p></div><span class="cert-year">2026</span></div>
+        <div class="cert-row"><span class="cert-icon">🔵</span><div class="cert-info"><p class="cert-name">Certified Multi-Cloud Blue Team Analyst (MCBTA)</p><p class="cert-issuer">CyberWarfare Labs</p></div><span class="cert-year">2026</span></div>
+        <div class="cert-row"><span class="cert-icon">☁️</span><div class="cert-info"><p class="cert-name">AWS Academy Graduate — Machine Learning Foundations</p><p class="cert-issuer">AWS Academy</p></div><span class="cert-year">2025</span></div>
+        <div class="cert-row"><span class="cert-icon">☁️</span><div class="cert-info"><p class="cert-name">AWS Academy Graduate — Data Engineering</p><p class="cert-issuer">AWS Academy</p></div><span class="cert-year">2025</span></div>
+        <div class="cert-row"><span class="cert-icon">🧪</span><div class="cert-info"><p class="cert-name">BIO101: Introduction to Molecular &amp; Cellular Biology</p><p class="cert-issuer">—</p></div><span class="cert-year">2026</span></div>
+        <div class="cert-row"><span class="cert-icon">🔬</span><div class="cert-info"><p class="cert-name">Research Methodology Course</p><p class="cert-issuer">CANECSA / UNITAR</p></div><span class="cert-year">2026</span></div>
+        <div class="cert-row"><span class="cert-icon">🩺</span><div class="cert-info"><p class="cert-name">Community Engagement &amp; Involvement for Surgical Research</p><p class="cert-issuer">NIHR Global Surgery Unit</p></div><span class="cert-year">2026</span></div>
+        <div class="cert-row"><span class="cert-icon">⚗️</span><div class="cert-info"><p class="cert-name">Metals in Medicine</p><p class="cert-issuer">OpenLearn / The Open University</p></div><span class="cert-year">2026</span></div>
+      </div>
+    </div>
+  </section>
 
-        // Dark Mode Toggle
-        const themeToggle = document.getElementById('checkbox');
-        const themeIcon = document.getElementById('theme-icon');
+  <hr class="divider" />
 
-        const enableDarkMode = () => {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            localStorage.setItem('theme', 'dark');
-            themeIcon.textContent = '🌙';
-        };
+  <!-- CONNECT -->
+  <section id="connect">
+    <div class="connect-inner reveal">
+      <div>
+        <p class="section-label">// connect</p>
+        <h2 class="section-title" style="margin-bottom:0.4rem;">Let's talk</h2>
+        <p style="font-size:0.87rem;color:var(--ink2);margin-bottom:1.5rem;">Open to research collaborations, bioinformatics discussions, and interesting projects.</p>
+      </div>
+      <div class="connect-links">
+        <a href="https://github.com/ErickQ29" target="_blank" rel="noopener" class="connect-link">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.031 1.531 1.031.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+          @ErickQ29
+        </a>
+        <a href="https://www.linkedin.com/in/erick-quiroz-492189347" target="_blank" rel="noopener" class="connect-link">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://github.com/ErickQ29?tab=repositories" target="_blank" rel="noopener" class="connect-link">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"/></svg>
+          All Repositories
+        </a>
+      </div>
+      <p style="font-size:0.73rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">📍 Panama City, Panama</p>
+    </div>
+  </section>
 
-        const disableDarkMode = () => {
-            document.documentElement.setAttribute('data-theme', 'light');
-            localStorage.setItem('theme', 'light');
-            themeIcon.textContent = '☀️';
-        };
+  <!-- FOOTER -->
+  <footer>
+    <span>Erick Quiroz</span> · Built with HTML &amp; CSS · <span>2026</span>
+  </footer>
 
-        // Check for saved theme preference
-        const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
-        const currentTheme = localStorage.getItem('theme');
-
-        if (currentTheme === 'dark') {
-            themeToggle.checked = true;
-            enableDarkMode();
-        } else if (currentTheme === 'light') {
-            themeToggle.checked = false;
-            disableDarkMode();
-        } else if (prefersDarkScheme.matches) {
-            // If no preference saved, use system preference
-            themeToggle.checked = true;
-            enableDarkMode();
-        }
-
-        themeToggle.addEventListener('change', () => {
-            if (themeToggle.checked) {
-                enableDarkMode();
-            } else {
-                disableDarkMode();
-            }
-        });
-
-        // Set current year for copyright
-        document.getElementById('current-year').textContent = new Date().getFullYear();
-    </script>
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    reveals.forEach(r => obs.observe(r));
+  </script>
 </body>
 </html>
